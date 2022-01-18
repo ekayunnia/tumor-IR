@@ -25,11 +25,11 @@
             font-family: Poppins-Medium;
             font-size: 15px;
             line-height: 1.5;
-            color: #2f3331;
+            color: #e726a7;
             visibility: visible;
             display: block;
             width: 100%;
-            background: #b0cfc0;
+            background: #e07baa;
             height: 50px;
             border-radius: 25px;
             padding: 0 30px 0 68px;
@@ -83,75 +83,7 @@
                         </button>
                     </div>                    
                 </form>
-                <!-- end of query by upload -->
-                
-                <!-- query sample -->
-                <h2 style="padding-center: 10px;">
-                    <br/>Sample of Query
-                </h2>
 
-                <section class="contact-section centred" style="padding-top:10px;" id="predict2">
-                    <div class="container">
-                        <table>
-                            <tr>
-                                <td>
-                                    <div class="row" style="padding-bottom: 1%;">
-                                        <div class="column">
-                                            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-                                                <figcaption>
-                                                    meningioma
-                                                </figcaption>
-                                                <form action="/" method="post" enctype="multipart/form-data">
-                                                    <input type="hidden" name="query_img" id="count" value="static/img/meningioma (8).jpg" />
-                                                    <input type="image" name="submit" onclick="change('static/img/meningioma (8).jpg')"
-                                                        style="padding-left: 10%;"
-                                                        src="{{ url_for('static', filename='img/meningioma (8).jpg')}}"/>
-                                                </form>
-                                            </figure>
-                                        </div>                                
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="row" style="padding-bottom: 1%;">
-                                        <div class="column">
-                                            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-                                                <figcaption>
-                                                    glioma
-                                                </figcaption>
-                                                <form action="/" method="post" enctype="multipart/form-data">
-                                                    <input type="hidden" name="query_img" id="count" value="static/img/glioma (8).jpg" />
-                                                    <input type="image" name="submit" onclick="change('static/img/glioma (8).jpg')"
-                                                        style="padding-left: 10%;"
-                                                        src="{{ url_for('static', filename='img/pneumonia-8.jpeg')}}"/>
-                                                </form>
-                                            </figure>
-                                        </div>                                
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="row" style="padding-bottom: 1%;">
-                                        <div class="column">
-                                            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-                                                <figcaption>
-                                                    pituitary
-                                                </figcaption>
-                                                <form action="/" method="post" enctype="multipart/form-data">
-                                                    <input type="hidden" name="query_img" id="count" value="static/img/pituitary (8).jpg" />
-                                                    <input type="image" name="submit" onclick="change('static/img/pituitary (8).jpg')"
-                                                        style="padding-left: 10%;"
-                                                        src="{{ url_for('static', filename='img/pituitary (8).jpg')}}"/>
-                                                </form>
-                                            </figure>
-                                        </div>                                
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </section>
-                <!-- end of query sample -->
-                
-                <!-- retrieval result -->
                 {% if scores %}
                 <h2 style="padding-left: 10px;">
                     Retrieval Result
@@ -161,55 +93,24 @@
                     <div class="container">
                         <table>
                             <tr>
-                                {% for i in range(scores|length) %}
+                               
                                 <td>
                                     <div class="row" style="padding-bottom: 1%;">
                                         <div class="column">
+                                            {% for i in range(scores|length) %}
                                             <figure style="float: left; margin-right: 10px; margin-bottom: 10px;">
                                                 <img src="{{ images[i] }}" width="100px" height="100px">
                                                 <figcaption>
                                                     {{ scores[i]|float|round(3) }}
                                                     <br>{{ images[i].name }}
                                                 </figcaption>
+                                            
                                             </figure>
+                                            {% endfor %}
                                         </div>                                
                                     </div>
                                 </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                {% for col_num in range(4,8) %}
-                                <td>
-                                    <div class="row" style="padding-bottom: 1%;">
-                                        <div class="column">
-                                            <figure style="float: left; margin-right: 10px; margin-bottom: 10px;">
-                                                <img src="{{ scores[col_num][1] }}" width="100px" height="100px">
-                                                <figcaption>
-                                                    {{ scores[col_num][0]|float|round(3) }}
-                                                    <br>{{ scores[col_num][1].name }}
-                                                </figcaption>  
-                                            </figure>
-                                        </div>                                
-                                    </div>
-                                </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                {% for col_num in range(8,12) %}
-                                <td>
-                                    <div class="row" style="padding-bottom: 1%;">
-                                        <div class="column">
-                                            <figure style="float: left; margin-right: 10px; margin-bottom: 10px;">
-                                                <img src="{{ scores[col_num][1] }}" width="100px" height="100px">
-                                                <figcaption>
-                                                    {{ scores[col_num][0]|float|round(3) }}
-                                                    <br>{{ scores[col_num][1].name }}
-                                                </figcaption>
-                                            </figure>
-                                        </div>                                
-                                    </div>
-                                </td>
-                                {% endfor %}
+
                             </tr>
                         </table>
                     </div>
