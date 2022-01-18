@@ -9,18 +9,24 @@ import numpy as np
 from feature_extractor import FeatureExtractor
 
 app = Flask(__name__)
-retrieval_scores = []
-retrieval_images = []
 base_dir = 'static/img'
 feature_dir = 'static/feature'
 model_dir = 'static/model'
 
+@app.after_request
+def add_header(r):
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
+
 # Read image features
-fe = FeatureExtractor(load_model(model_dir + '/braintumor.h5', compile=False))
+fe = FeatureExtractor(load_model(model_dir + '/tumor_model1.h5', compile=False))
 
 img_paths = list()
 
-for img_path in sorted(Path(base_dir).glob("*.jpeg")):
+for img_path in sorted(Path(base_dir).glob("*.jpg")):
     img_paths.append(img_path)
 
 features = np.load(feature_dir + '/extracted_feature.npy')
@@ -39,20 +45,24 @@ def index():
 
         # Save query image
         img.save(uploaded_img_path)
-
         # Run search
         query = fe.extract(img)
-        dists = np.linalg.norm(query)  # L2 distances to features
-        ids = np.argsort(dists)[:12]  # Top 9 results
-        scores = [(dists[id], img_paths[id]) for id in ids]
+        dists = np.linalg.norm(features-query, axis=1)  # L2 distances to features
+        ids = np.argsort(dists)[:10]  # Top 9 results
+        scores = [(dists[id], img_paths[id]) for id in range(len(ids))]
+
+        retrieval_scores = []
+        retrieval_images = []
+
         for i in range(10):
             result = scores[i]
             retrieval_scores.append(result[0])
             retrieval_images.append(result[1])
-        return render_template('index.html', query_path=uploaded_img_path, scores = retrieval_scores, images = retrieval_images)
+        return render_template('index.html', query_path=uploaded_img_path, 
+                                scores = retrieval_scores, images = retrieval_images)
     else:
         return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=2000)
 
