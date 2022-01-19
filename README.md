@@ -16,6 +16,7 @@ Dataset Brain Tumor berjumlah 3064 image yang terbagi menjadi beberapa kelas jen
 **Paper Referensi**
 
 "Content-Based Brain Tumor Retrieval for MR Images Using Transfer Learning" 
+
 URL : https://ieeexplore.ieee.org/abstract/document/8611216
 DOI : 10.1109/ACCESS.2019.2892455 
 
