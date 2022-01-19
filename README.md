@@ -29,6 +29,7 @@ DOI : 10.1109/ACCESS.2019.2892455
 **Penyimpanan Model**
 - .h5
 - .npy
+
 URL : https://drive.google.com/drive/folders/17nYK-_x-rGypij_Wmi-Tu7iXZrp8zlhP
 
 -------------------------------------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ URL : https://drive.google.com/drive/folders/17nYK-_x-rGypij_Wmi-Tu7iXZrp8zlhP
 -------------------------------------------------------------------------------------------------------------
 
 **Tampilan WEB**
+
 ![tumorcbir](https://user-images.githubusercontent.com/63344621/149986021-259add5b-5fe1-44e7-8485-b34105607251.jpeg)
 ![cbir](https://user-images.githubusercontent.com/63344621/149986796-477f54aa-48e6-49b6-9c5b-ba40531a5b9a.jpeg)
 
